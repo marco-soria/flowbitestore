@@ -47,6 +47,9 @@ importers:
       tslib:
         specifier: ^2.3.0
         version: 2.6.3
+      wavesurfer.js:
+        specifier: ^7.8.4
+        version: 7.8.4
       zone.js:
         specifier: ~0.14.10
         version: 0.14.10
@@ -4210,6 +4213,9 @@ packages:
   watchpack@2.4.1:
     resolution: {integrity: sha512-8wrBCMtVhqcXP2Sup1ctSkga6uc2Bx0IIvKyT7yTFier5AXHooSI+QyQQAtTb7+E0IUCCKyTFmXqdqgum2XWGg==}
     engines: {node: '>=10.13.0'}
+
+  wavesurfer.js@7.8.4:
+    resolution: {integrity: sha512-KhCCdts2sL/cjgsGWayvqTSagz55YauTvObzY5dgU9WXYddDUJ5rQwy/4MI/CNURfAjDL17kufOVbKgeIR5tZA==}
 
   wbuf@1.7.3:
     resolution: {integrity: sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==}
@@ -8853,6 +8859,8 @@ snapshots:
     dependencies:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
+
+  wavesurfer.js@7.8.4: {}
 
   wbuf@1.7.3:
     dependencies:
