@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductComponent } from './../../components/product/product.component';
-import { HeaderComponent } from './../../../shared/components/header/header.component';
-import { Product } from './../../../shared/models/product.model';
-import { CartService } from './../../../shared/services/cart.service';
+import { ProductComponent } from '@products/components/product/product.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { Product } from '@shared/models/product.model';
+import { CartService } from '@shared/services/cart.service';
+import { ProductService } from '@shared/services/product.service';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -19,55 +20,56 @@ export class ListComponent {
   products = signal<Product[]>([]);
   //cart = signal<Product[]>([]);
   private cartService = inject(CartService);
+  private productService = inject(ProductService);
 
 
-  constructor() {
-    const initProducts: Product[]  = [
-      {
-        id: uuidv4(),
-        title: 'Pro 1',
-        price: 100,
-        image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: uuidv4(),
-        title: 'Pro 2',
-        price: 100,
-        image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: uuidv4(),
-        title: 'Pro 3',
-        price: 100,
-        image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: uuidv4(),
-        title: 'Pro 4',
-        price: 100,
-        image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: uuidv4(),
-        title: 'Pro 5',
-        price: 100,
-        image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: uuidv4(),
-        title: 'Pro 6',
-        price: 100,
-        image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
-        creationAt: new Date().toISOString()
-      }
-    ];
-    this.products.set(initProducts);
-  }
+  // constructor() {
+  //   const initProducts: Product[]  = [
+  //     {
+  //       id: uuidv4(),
+  //       title: 'Pro 1',
+  //       price: 100,
+  //       image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
+  //       creationAt: new Date().toISOString()
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       title: 'Pro 2',
+  //       price: 100,
+  //       image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
+  //       creationAt: new Date().toISOString()
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       title: 'Pro 3',
+  //       price: 100,
+  //       image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
+  //       creationAt: new Date().toISOString()
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       title: 'Pro 4',
+  //       price: 100,
+  //       image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
+  //       creationAt: new Date().toISOString()
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       title: 'Pro 5',
+  //       price: 100,
+  //       image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
+  //       creationAt: new Date().toISOString()
+  //     },
+  //     {
+  //       id: uuidv4(),
+  //       title: 'Pro 6',
+  //       price: 100,
+  //       image: `https://picsum.photos/640/640?r= + ${Math.random()}`,
+  //       creationAt: new Date().toISOString()
+  //     }
+  //   ];
+  //   this.products.set(initProducts);
+  // }
 
   // fromChild(event: string) {
   //   console.log('estamos en al padre');
@@ -76,6 +78,18 @@ export class ListComponent {
   // addToCart(product: Product) {
   //   this.cart.update(prevState => [...prevState, product]);
   // }
+
+  ngOnInit() {
+    this.productService.getProducts()
+    .subscribe({
+      next: (products) => {
+        this.products.set(products);
+      },
+      error: () => {
+
+      }
+    });
+  }
 
   addToCart(product: Product) {
     this.cartService.addToCart(product)
