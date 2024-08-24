@@ -1,8 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './../../components/product/product.component';
 import { HeaderComponent } from './../../../shared/components/header/header.component';
 import { Product } from './../../../shared/models/product.model';
+import { CartService } from './../../../shared/services/cart.service';
+
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -15,7 +17,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class ListComponent {
 
   products = signal<Product[]>([]);
-  cart = signal<Product[]>([]);
+  //cart = signal<Product[]>([]);
+  private cartService = inject(CartService);
 
 
   constructor() {
@@ -70,7 +73,11 @@ export class ListComponent {
   //   console.log('estamos en al padre');
   //   console.log(event);
   // }
+  // addToCart(product: Product) {
+  //   this.cart.update(prevState => [...prevState, product]);
+  // }
+
   addToCart(product: Product) {
-    this.cart.update(prevState => [...prevState, product]);
+    this.cartService.addToCart(product)
   }
 }
