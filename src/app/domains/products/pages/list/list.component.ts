@@ -15,6 +15,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class ListComponent {
 
   products = signal<Product[]>([]);
+  cart = signal<Product[]>([]);
+
 
   constructor() {
     const initProducts: Product[]  = [
@@ -64,8 +66,11 @@ export class ListComponent {
     this.products.set(initProducts);
   }
 
-  fromChild(event: string) {
-    console.log('estamos en al padre');
-    console.log(event);
+  // fromChild(event: string) {
+  //   console.log('estamos en al padre');
+  //   console.log(event);
+  // }
+  addToCart(product: Product) {
+    this.cart.update(prevState => [...prevState, product]);
   }
 }
